@@ -1,0 +1,561 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Start Screen */
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
+  text-align: center;
+}
+
+.start-screen h1 {
+  font-size: 4rem;
+  letter-spacing: 0.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+  animation: pulse 2s infinite;
+}
+
+.start-button {
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background: rgba(139, 0, 0, 0.8);
+  border: 2px solid #8b0000;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.2rem;
+}
+
+.start-button:hover {
+  background: #8b0000;
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.warning {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Main Scene Container */
+.scene {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: #000;
+  transition: background 0.5s;
+}
+
+/* Rain Effect */
+.rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.raindrop {
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Lightning Effects */
+.lightning-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 150;
+  animation: flash 0.15s;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Outside Scene */
+.outside {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #0a0a14 0%, #1a1a28 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.house-exterior {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 300px;
+  background: #1a1a1a;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+}
+
+.house-window {
+  position: absolute;
+  top: 80px;
+  left: 20%;
+  width: 60px;
+  height: 80px;
+  background: rgba(255, 200, 100, 0.6);
+  box-shadow: 0 0 30px rgba(255, 200, 100, 0.4);
+}
+
+.house-window.glow {
+  animation: windowGlow 3s infinite;
+}
+
+.house-door {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 120px;
+  background: #0a0a0a;
+  border: 2px solid #333;
+}
+
+.boy-outside {
+  position: absolute;
+  bottom: 100px;
+  left: 20%;
+  transition: all 4s ease-out;
+}
+
+.boy-outside.boy-approaching {
+  left: 50%;
+  transform: translateX(-50%) scale(1.5);
+}
+
+.silhouette {
+  width: 60px;
+  height: 120px;
+  background: #000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+  animation: walk 1s infinite;
+}
+
+@keyframes walk {
+  0%, 100% { transform: skewX(-2deg); }
+  50% { transform: skewX(2deg); }
+}
+
+/* Inside Scene */
+.inside {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #1a1410 0%, #2a2420 100%);
+  position: relative;
+  animation: ambientLight 3s infinite;
+}
+
+.inside.flicker {
+  animation: flicker 0.5s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.7; }
+  50% { opacity: 1; }
+  75% { opacity: 0.8; }
+}
+
+@keyframes ambientLight {
+  0%, 100% { filter: brightness(0.4); }
+  50% { filter: brightness(0.5); }
+}
+
+/* Family */
+.family {
+  position: absolute;
+  right: 20%;
+  top: 30%;
+  display: flex;
+  gap: 40px;
+  transition: all 1s;
+}
+
+.family.terrified {
+  transform: scale(0.95) translateY(-10px);
+}
+
+.person-body {
+  width: 60px;
+  height: 100px;
+  background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+  position: relative;
+  animation: breathe 2s infinite;
+}
+
+.person-body.small {
+  width: 40px;
+  height: 70px;
+}
+
+.face {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: #ffd7b5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: all 0.5s;
+}
+
+.face.small {
+  width: 35px;
+  height: 35px;
+  font-size: 1.5rem;
+}
+
+.face.scared {
+  animation: tremble 0.1s infinite;
+}
+
+.face.crying {
+  animation: sob 1s infinite;
+}
+
+.sister.hiding {
+  transform: translateX(-30px) scale(0.8);
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.98); }
+}
+
+@keyframes tremble {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(-50%) rotate(-2deg); }
+  75% { transform: translateX(-50%) rotate(2deg); }
+}
+
+@keyframes sob {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(0.95); }
+}
+
+/* The Boy Inside */
+.boy-inside {
+  position: absolute;
+  left: 30%;
+  top: 35%;
+  transition: all 2s;
+}
+
+.boy-inside.transforming {
+  transform: scale(1.2);
+  filter: brightness(0.5);
+}
+
+.boy-inside.horror-face {
+  animation: grow 2s forwards;
+  filter: brightness(0.3);
+}
+
+@keyframes grow {
+  to {
+    transform: scale(2) translateX(20%);
+  }
+}
+
+.boy-body {
+  width: 70px;
+  height: 120px;
+  background: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%);
+  position: relative;
+}
+
+.boy-body.muddy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(101, 67, 33, 0.3) 10px,
+    rgba(101, 67, 33, 0.3) 20px
+  );
+}
+
+.boy-face {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: #ffd7b5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  transition: all 1s;
+}
+
+.boy-face.emotionless {
+  filter: brightness(0.7);
+}
+
+.boy-face.transform {
+  animation: distort 1s infinite;
+  background: linear-gradient(180deg, #ffd7b5 0%, #999 100%);
+}
+
+.boy-face.horror-face {
+  background: #1a1a1a;
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes distort {
+  0%, 100% { transform: translateX(-50%) scaleY(1); }
+  50% { transform: translateX(-50%) scaleY(1.1); }
+}
+
+.demon-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  animation: demonAppear 2s forwards;
+}
+
+.dark-eyes {
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  filter: brightness(0.3);
+  animation: eyeGlow 1s infinite;
+}
+
+.evil-smile {
+  font-size: 2rem;
+  animation: smileGrow 2s forwards;
+}
+
+@keyframes demonAppear {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes eyeGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+  50% { text-shadow: 0 0 20px rgba(255, 0, 0, 1); }
+}
+
+@keyframes smileGrow {
+  from { transform: scaleX(0.5); }
+  to { transform: scaleX(1.2); }
+}
+
+/* Atmospheric Effects */
+.cold-breath {
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(200, 220, 255, 0.3) 0%, transparent 70%);
+  animation: breath 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes breath {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+.whispers {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.whispers span {
+  position: absolute;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  animation: whisper 4s infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.whispers span:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.whispers span:nth-child(2) {
+  top: 50%;
+  right: 15%;
+  animation-delay: 1.5s;
+}
+
+.whispers span:nth-child(3) {
+  top: 70%;
+  left: 30%;
+  animation-delay: 3s;
+}
+
+@keyframes whisper {
+  0% { opacity: 0; transform: translateY(0); }
+  10% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-50px); }
+}
+
+/* Doorway */
+.doorway {
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  width: 100px;
+  height: 200px;
+}
+
+.door-frame {
+  width: 100%;
+  height: 100%;
+  border: 5px solid #4a3a2a;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Zoom Overlay */
+.zoom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: zoomIn 3s forwards;
+  pointer-events: none;
+}
+
+.vignette {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 20%, #000 100%);
+  animation: vignetteClose 3s forwards;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(1); }
+  to { transform: scale(1.5); }
+}
+
+@keyframes vignetteClose {
+  from { background: radial-gradient(circle, transparent 40%, #000 100%); }
+  to { background: radial-gradient(circle, transparent 10%, #000 80%); }
+}
+
+/* Text Overlays */
+.text-overlay {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  z-index: 200;
+  text-align: center;
+  letter-spacing: 0.2rem;
+}
+
+.text-overlay.final-text {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  animation: finalText 3s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes finalText {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes windowGlow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .start-screen h1 {
+    font-size: 2.5rem;
+  }
+
+  .text-overlay {
+    font-size: 1.5rem;
+  }
+
+  .text-overlay.final-text {
+    font-size: 1.8rem;
+    padding: 0 20px;
+  }
+}
